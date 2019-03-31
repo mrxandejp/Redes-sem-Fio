@@ -1,6 +1,7 @@
 #Classe de nós
+from physicalLayer import PhysicalLayer
 
-class Node:
+class Node(PhysicalLayer):
 	# Atributos da classe (class atributes)
 	# Construtor do objeto (initializer)
 	def __init__(self, id, posX, posY):

@@ -5,11 +5,12 @@ Prof: Fernando Menezes Matos
 
 import node as no
 import packet as pk 
-import pyshicalLayer as pys
+import physicalLayer as phy
 import random
-from scipy.spatial import distance_matrix
+import numpy as np
+from scipy.spatial import distance
 
-def GenerateNetwork(nodes,size, n): # Função que cria a topologia da rede
+def GenerateNetwork(nodes,size, nos): # Função que cria a topologia da rede
     lista = []
     for i in range(nodes):
         while(True):
@@ -18,25 +19,17 @@ def GenerateNetwork(nodes,size, n): # Função que cria a topologia da rede
             r = [rx, ry]
             if r not in lista: 
                 lista.append(r)
-                n.append(no.Node(i,rx,ry))
+                nos.append(no.Node(i,rx,ry))
                 break
 
+nos = []
 
-    #for i in range(nodes):
-	#	n[i] = no.Node(i,random.randint(0,size),random.randint(0,size))
+GenerateNetwork(100,9, nos)
 
-n = []
-GenerateNetwork(100,10, n)
-
-for i in n:
+nos_np = np.array(nos)
+for i in nos_np:
     print(str(i.pos))
 
-
-
-'''
-no1 = no.Node(1,2,3)
 pkt1 = pk.Packet(10, [0,1,1])
-camadaFisica = pys.PyshicalLayer()
 
-camadaFisica.Send(pkt1)
-'''
+nos_np[0].send(pkt1, nos_np)
