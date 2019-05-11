@@ -26,26 +26,63 @@ def GenerateNetwork(nodes,size, nos): # Função que cria a topologia da rede
                 break
 
 nos = []
+count = 0  
+pacotes = []     
+# Leitura de entrada de um arquivo
+f = open("input.txt","r") # abre o arquivo input.txt em modo de leitura (read)
+if f.mode == 'r':
+    num_nos = f.readline()
+    tamanho = f.readline()
+    if f.readline() == "sim\n":
+        for lines in f:
+            if lines != "parou\n":
+                #print(lines[0])
+                nos.append(no.Node(count,int(lines[0]),int(lines[2])))
+                count = count + 1
+            else:
+                break
+'''           
+        for linhas in f:
+            print(linhas[4:])
+            pacotes = pk.Packet(count,[linhas[4:]])
+            pacotes.link_header([0,0])
+'''
+#nos = []
 
-GenerateNetwork(4,1, nos)
+#GenerateNetwork(4,1, nos)
 
 nos_np = np.array(nos)
 for i in nos_np:
     log.info(str(i.pos))
 
-pkt1 = pk.Packet(0, [0,0,0])
+pkt1 = pk.Packet(0, [0,0,0], 0, 1)
 pkt1.link_header([0,1])
-pkt2 = pk.Packet(1, [0,0,1])
+pkt2 = pk.Packet(1, [0,0,1], 2, 1)
 pkt2.link_header([2,1])
-pkt3 = pk.Packet(2, [0,1,0])
+pkt3 = pk.Packet(2, [0,1,0], 0, 1)
 pkt3.link_header([0,1])
 
 pkt =  [pkt1, pkt2, pkt3]
 
 qt_pkts = len(pkt)
-print(qt_pkts)
+#print(qt_pkts)
 pkt_enviado = []
 
+id_flood = 0
+
+while(True):
+    if len(pkt):
+        if pkt[0].header[1] in nos_np[pkt[0].header[0]].rotas:
+            print("TEM NA TABELA")
+            pass
+        else:
+            nos_np[pkt[0].header[0]].route_request(id_flood, pkt[0].header[0], pkt[0].header[1], nos_np)
+            id_flood += 1
+            print("NÃO TEM NA TABELA")
+            pass
+    break
+
+'''
 while(True):
     if len(pkt) != 0:
         for i in nos_np:
@@ -79,6 +116,6 @@ while(True):
         print("ENVIADO TODOS OS PACOTES")
         break
     pass
-
+'''
 #nos_np[0].send(pkt1, nos_np)
 #nos_np[0].send_rts(1, 2, 1, 0,nos_np)

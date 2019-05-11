@@ -1,7 +1,7 @@
 #Classe de nós
-from linkLayer import LinkLayer
+from networkLayer import NetworkLayer
 
-class Node(LinkLayer):
+class Node(NetworkLayer):
 	# Atributos da classe (class atributes)
 	# Construtor do objeto (initializer)
 	
@@ -10,3 +10,5 @@ class Node(LinkLayer):
 		self.pos = [posX,posY]
 		self.busy_tone = 0
 		self.vizinhos = []
+		self.rotas = {self.id : self.id}
+	

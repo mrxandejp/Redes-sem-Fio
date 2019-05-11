@@ -10,10 +10,10 @@ class PhysicalLayer():
     def __init__ (self):
         pass
 
-    def send(self, packet, nos_np, no_send):
+    def send(self, packet, nos_send):
         log.info("Enviando pacote " +  str(packet.content))
         #print("Enviando pacote " +  str(packet.content))
-        print("Enviado do nó " + str(self.id) + " para o nó " + str(nos_np[no_send].id))
+        print("Enviado do nó " + str(self.id) + " para o nó " + str(nos_send.id))
         
         
         
